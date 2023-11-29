@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Uni-Grader</title>
+
+<style type="text/css">
+body  {
+    font-size: 140%;
+    font-family: monospace;
+}
+
+#logo
+{
+    font-family: Calibri, sans-serif;
+    font-weight: lighter;
+    color: #505050;
+    margin: 0.5em;
+}
+#heading
+{
+    font-family: Calibri, sans-serif;
+    font-weight: lighter;
+    color: #505050;
+    /* color: #0a0a0a; */
+    margin: 0.5em;
+}
+
+#qga
+{
+    text-align: center;
+    margin-top: 0;
+}
+
+#stats_window{
+    width: 600px;
+    height: 210px;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    float:middle;
+    border:none;
+}
+
+.display-module {
+    font-size: 90%;
+    color: black;
+    background-color: white;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 480px;
+
+}
+.display-mark{
+    font-size: 90%;
+    color: black;
+    background-color: white;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 100px;
+
+}
+.display-input{
+    font-size: 90%;
+    color: black;
+    background-color: white;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 100%;
+}
+#load_save{
+    /* border: 2px solid black; */
+    /* width: 650px; */
+    width: 40%;
+    margin-left:30%;
+    margin-right:30%;
+}
+#save_btn_grp{
+    width:100%;
+    padding: 0;
+    margin: 0;
+}
+.save_btn{
+    color:white;
+    background-color: green;
+    width:30%;
+    padding: 0px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    height: 30px;
+    margin: 0.3em;
+    font-size: 18px;
+
+}
+.delete-btn {
+    background-color: red;
+}
+.display-output {
+    font-size: 90%;
+    color: white;
+    background-color: black;
+    padding: 0.2em;
+    margin: 0.2em;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+    width: 610px;
+    height: 150px;
+
+}
+
+.qgabutton-active {
+    background-color: green;
+    color: white;
+    padding: 0px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 40px;
+    width: 400px;
+}
+
+.qgabutton-inactive {
+    background-color: gray;
+    color: white;
+    padding: 0px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 40px;
+    width: 400px;
+}
+
+.qgabutton-clear {
+    background-color: red;
+    color: white;
+    padding: 0px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 40px;
+    width: 400px;
+}
+#error_msg{
+    color:red;
+}
+#success_msg{
+    color: green;
+}
+</style>
+
+</head>
+<body>
+<div id="qga">
+    <div id="logo">
+        Uni GradeMe App
+    </div>
+    <!-- Add load/save option here -->
+    <div id = "load_save">
+        <span>Data Store</span><br>
+        <input type="text" class="display-input" id = "save_id" placeholder="Enter ID"><br> 
+        <div id="save_btn_grp">
+            <button class = "save_btn" onclick="saveRequest()">Save</button>
+            <button class = "save_btn" onclick="retreiveRequest()">Find</button>
+            <button class = "save_btn delete-btn" onclick="deleteRequest()">Delete</button>
+        </div>
+        <!-- <br> -->
+        <span id = "success_msg">Success</span>
+        <span id = "error_msg">Error</span>
+    </div>
+    <div>
+        <input class="display-module" type="text" id="module_1" name="module_1" placeholder="Module 1">
+        <input class="display-mark"  type="text" id="mark_1" name="mark_1" placeholder="Mark 1"></br>
+        <input class="display-module" type="text" id="module_2" name="module_2" placeholder="Module 2">
+        <input class="display-mark"  type="text" id="mark_2" name="mark_2" placeholder="Mark 2"></br>
+        <input class="display-module" type="text" id="module_3" name="module_3" placeholder="Module 3">
+        <input class="display-mark"  type="text" id="mark_3" name="mark_3" placeholder="Mark 3"></br>
+        <input class="display-module" type="text" id="module_4" name="module_4" placeholder="Module 4">
+        <input class="display-mark"  type="text" id="mark_4" name="mark_4" placeholder="Mark 4"></br>
+        <input class="display-module" type="text" id="module_5" name="module_5" placeholder="Module 5">
+        <input class="display-mark"  type="text" id="mark_5" name="mark_5" placeholder="Mark 5">
+    </div>
+    <div>
+        <textarea class="display-output" id="output-text" rows="5" cols="35" readonly=1 placeholder="Results here..." value="">
+        </textarea>
+    </div>
+    <div>
+        <button class="qgabutton-active" onclick="getMaxMin();">Highest & Lowest Scoring Modules</button>
+    </div>
+    <div>
+        <button class="qgabutton-active" onclick="getSortedModules();">Sort Modules</button>
+    </div>
+    <div>
+        <button class="qgabutton-active" onclick="getTotal();">Total Marks</button>
+    </div>
+    <div>
+        <button class="qgabutton-active" onclick="getClassification();">Classify Grade</button>
+    </div>
+    <div>
+        <button class="qgabutton-active" onclick="getAverage();">Calculate Average Mark</button>
+    </div>
+    <div>
+        <button class="qgabutton-active" onclick="getGradeReview();">Review Grades</button>
+    </div>
+    <div>
+        <button class="qgabutton-clear" onclick="clearText();">Clear</button>
+    </div>
+    <div id="heading">
+        Service Stats
+    </div>
+    <iframe src="http://monitor.example.com/" id="stats_window"></iframe>
+</div>
+
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>

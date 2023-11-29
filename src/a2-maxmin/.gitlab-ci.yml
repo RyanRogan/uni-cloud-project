@@ -1,0 +1,6 @@
+image: php:7.3-apache
+
+test:app:
+  script:
+    - bash docker_install.sh > /dev/null
+    - phpunit src/maxminTest.php

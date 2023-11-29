@@ -1,0 +1,8 @@
+image: php:7.3-apache
+
+before_script:
+  - bash docker_install.sh > /dev/null
+
+test:app:
+  script:
+    - phpunit src/sortTest.php

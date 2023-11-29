@@ -1,0 +1,10 @@
+image: dart:2.18.2
+
+stages:
+  - test
+test:
+  stage: test
+  script:
+    - cd src
+    - dart pub get
+    - dart run appTest.dart

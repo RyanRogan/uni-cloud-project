@@ -1,0 +1,14 @@
+{
+    "grade-total": "http://grade-total.example.com/",
+    "maxmin": "http://grade-maxmin.example.com/",
+    "sort" : "http://grade-sort.example.com/",
+    "grade-classifier" : "http://grade-classifier.example.com",
+    "grade-average" : "http://grade-average.example.com/",
+    "grade-review" : "http://grade-review.example.com/",
+    "state-save" : {
+        "url" : "http://save.example.com",
+        "add" : "/add",
+        "get" : "/get/record/",
+        "delete" : "/delete/record/"
+    }
+}

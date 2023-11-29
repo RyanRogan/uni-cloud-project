@@ -1,0 +1,2 @@
+class SaveStateException(Exception):
+    pass
